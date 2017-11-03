@@ -69,7 +69,12 @@ endif()
 
 # preprocessor flags (-D definitions and -I includes)
 # Grab environment variable CPPFLAGS and append those to definitions
-set(include_dirs ${CMAKE_CURRENT_BINARY_DIR} ${src_dir} ${src_dir}/i18n ${inc_dir} ${src_dir}/thirdparty/ittnotify ${src_dir}/thirdparty/safeclib)
+if(${HERMIT})
+	set(include_dirs ${HERMIT_PREFIX}/x86_64-hermit/include ${CMAKE_CURRENT_BINARY_DIR} ${src_dir} ${src_dir}/i18n ${inc_dir} ${src_dir}/thirdparty/ittnotify ${src_dir}/thirdparty/safeclib)
+else()	
+	set(include_dirs ${CMAKE_CURRENT_BINARY_DIR} ${src_dir} ${src_dir}/i18n ${inc_dir} ${src_dir}/thirdparty/ittnotify ${src_dir}/thirdparty/safeclib)
+endif()
+
 if(${LIBOMP_USE_HWLOC})
     set(include_dirs ${include_dirs} ${LIBOMP_HWLOC_INSTALL_DIR}/include)
 endif()
